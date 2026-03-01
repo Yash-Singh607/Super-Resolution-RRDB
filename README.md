@@ -1,136 +1,137 @@
-📸 Image Super-Resolution using RRDBNet
-🔎 Overview
+# Image Super-Resolution using RRDBNet
 
-This project presents a deep learning-based Single Image Super-Resolution (SISR) system built using the Residual-in-Residual Dense Block Network (RRDBNet) architecture, inspired by the design introduced in ESRGAN by Xintao Wang.
+## Overview
+This project implements a deep learning-based Single Image Super-Resolution (SISR) model using the Residual-in-Residual Dense Block Network (RRDBNet) architecture inspired by ESRGAN. The objective is to reconstruct high-resolution (HR) images from low-resolution (LR) inputs while preserving fine textures and sharp details.
 
-The objective is to reconstruct high-resolution (HR) images from low-resolution (LR) inputs while preserving fine textures, sharp edges, and structural consistency.
+---
 
-🎯 Problem Statement
+## Problem Statement
+Low-resolution images often suffer from:
+- Loss of high-frequency details  
+- Blurred edges  
+- Reduced perceptual clarity  
 
-Low-resolution images commonly suffer from:
+Traditional interpolation techniques such as bilinear and bicubic upsampling fail to restore fine textures effectively. This project learns a direct mapping:
 
-Loss of high-frequency details
-Blurred edges
-Reduced perceptual sharpness
-Texture distortion
+LR → HR
 
-Traditional interpolation methods such as bilinear and bicubic upsampling are incapable of reconstructing lost details.
+using a deep convolutional neural network.
 
-This project learns a nonlinear mapping:
+---
 
-LR Image → Deep Feature Extraction → HR Reconstruction
-using a deep convolutional neural network trained on paired LR–HR datasets.
+## Model Architecture
+The model is based on RRDBNet and includes:
+- Initial feature extraction layer  
+- Multiple Residual-in-Residual Dense Blocks (RRDB)  
+- Dense skip connections for improved gradient flow  
+- Residual learning without Batch Normalization  
+- PixelShuffle upsampling layers  
+- Final reconstruction layer  
 
-🧠 Model Architecture
+This design enables stable training and high-quality texture reconstruction.
 
-The model is based on the RRDBNet architecture and includes:
+---
 
-Initial convolutional feature extraction layer
-Multiple Residual-in-Residual Dense Blocks (RRDBs)
-Dense skip connections for improved gradient propagation
-Residual learning without Batch Normalization (to reduce artifacts)
-PixelShuffle upsampling layers for efficient resolution scaling
-Final reconstruction layer
+## Technical Details
+- Upscaling Factor: ×4  
+- Framework: PyTorch  
+- Loss Function: L1 Loss  
+- Optimizer: Adam  
+- Training Type: Supervised learning on paired LR-HR images  
 
-This architecture enables:
+---
 
-Stable deep network training
-Improved texture fidelity
-Enhanced structural detail preservation
-Better perceptual quality
-
-⚙️ Technical Specifications
-
-Component	Configuration
-Upscaling Factor	×4
-Framework	PyTorch
-Loss Function	L1 Loss
-Optimizer	Adam
-Training Type	Supervised (paired LR–HR images)
-Evaluation Metrics	PSNR, SSIM
-
-📂 Project Structure
+## Project Structure
 
 Super_Resolution/
 │
-├── train.py                # Training pipeline
-├── test.py                 # Inference script
-├── model.py                # Model wrapper
-├── dataset.py              # Dataset loader
-├── RRDBNet_arch.py         # RRDBNet architecture definition
-├── app.py                  # Web interface (optional)
-├── requirements.txt        # Dependencies
-├── README.md
-└── .gitignore
+├── train.py  
+├── test.py  
+├── model.py  
+├── dataset.py  
+├── RRDBNet_arch.py  
+├── app.py  
+├── requirements.txt  
+├── README.md  
+└── .gitignore  
 
-📊 Dataset
+---
 
+## Dataset
 The model is trained using paired datasets containing:
+- LR (Low Resolution) images  
+- HR (High Resolution) images  
 
-LR (Low Resolution) images
-HR (High Resolution) images
+Public datasets such as DIV2K or any custom paired dataset can be used.
 
-Public datasets such as:
-DIV2K
-can be used, or any custom paired dataset.
+Dataset structure:
 
-Expected Dataset Structure
 dataset/
-├── LR/
-└── HR/
+├── LR/  
+└── HR/  
 
-🛠️ Installation
+---
+
+## Installation
+
 pip install -r requirements.txt
 
-🏋️ Training
+---
+
+## Training
 
 python train.py
 
-During training:
+Training will load LR-HR image pairs, optimize reconstruction loss, and save model checkpoints in the `models/` directory.
 
-LR–HR image pairs are loaded
-Reconstruction loss is minimized
-Model checkpoints are saved in the models/ directory
+---
 
-🖼️ Testing / Inference
+## Testing
 
 python test.py
 
-The script will:
+This will load trained weights, generate super-resolved images, and save outputs in the `results/` directory.
 
-Load trained model weights
-Generate super-resolved images
-Save outputs in the results/ directory
+---
 
-📈 Evaluation Metrics
+## Evaluation Metrics
+- PSNR (Peak Signal-to-Noise Ratio)  
+- SSIM (Structural Similarity Index)  
+- Visual comparison with ground truth  
 
-Model performance is evaluated using:
-PSNR (Peak Signal-to-Noise Ratio)
-SSIM (Structural Similarity Index)
-Qualitative visual comparison with ground truth
+---
 
-🧰 Technologies Used
+## Applications
+- Medical image enhancement  
+- Satellite imagery refinement  
+- Surveillance footage improvement  
+- Image restoration  
+- Video frame upscaling  
 
-Python
-PyTorch
-NumPy
-OpenCV
-Matplotlib
+---
 
-🔮 Future Improvements
+## Technologies Used
+- Python  
+- PyTorch  
+- NumPy  
+- OpenCV  
+- Matplotlib  
 
-Integrate adversarial training (GAN-based enhancement)
-Add perceptual (VGG-based) loss
-Automate PSNR/SSIM evaluation pipeline
-Deploy via web application interface
-Optimize for real-time and edge inference
-Convert to ONNX / TensorRT for deployment
+---
 
-👨‍💻 Author
+## Future Improvements
+- Integrate adversarial training 
+- Add perceptual loss  
+- Automate PSNR/SSIM evaluation  
+- Deploy as a web application  
+- Optimize for real-time inference  
 
-Yash Pratap Singh
-Deep Learning & Computer Vision Enthusiast
+---
 
-📜 License
+## Author
+Yash Pratap Singh  
 
+---
+
+## License
 This project is intended for academic and research purposes.
